@@ -1,10 +1,15 @@
 import { Button } from "@headlessui/react";
-import "./App.css";
+import { useState } from "react";
+import BookingDialog from "./components/BookingDialog";
 
 function App() {
+  const [isOpen, setIsOpen] = useState(true);
+
   return (
     <>
-      <Button className="rounded" />
+      <Button onClick={() => setIsOpen(true)}>Book a table</Button>
+
+      <BookingDialog onClose={() => setIsOpen(false)} open={isOpen} />
     </>
   );
 }
