@@ -32,7 +32,13 @@ export default function BookingDialog({
             id="booking-form"
             onSubmit={onSubmit}
           >
-            <InputField label="People" name="people" />
+            <InputField
+              label="People"
+              min="1"
+              name="people"
+              type="number"
+              defaultValue={1}
+            />
             <InputField label="Date" name="date" type="date" />
             <InputField label="Time" name="time" type="time" />
           </form>

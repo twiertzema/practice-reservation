@@ -1,27 +1,27 @@
 import { Field, Input, InputProps, Label } from "@headlessui/react";
 import { useState } from "react";
 
-interface InputFieldProps extends Pick<InputProps, "name" | "type"> {
+interface InputFieldProps extends InputProps {
   label: string;
 }
 
-export default function InputField({ label, name, type }: InputFieldProps) {
+export default function InputField({ label, ...inputProps }: InputFieldProps) {
   const [inputFocus, setInputFocus] = useState(false);
 
   return (
     <Field
-      className="flex gap-2 rounded bg-slate-500 p-4 hover:outline"
+      className="flex items-baseline gap-4 rounded bg-slate-500 p-4 hover:outline"
       style={{
         outlineStyle: inputFocus ? "solid" : undefined,
       }}
     >
-      <Label>{label}</Label>
+      <Label className="text-sm italic">{label}</Label>
       <Input
-        className="bg-transparent focus:outline-none"
-        name={name}
+        {...inputProps}
+        className="flex-grow bg-transparent focus:outline-none"
         onBlur={() => setInputFocus(false)}
         onFocus={() => setInputFocus(true)}
-        type={type ?? "text"}
+        type={inputProps?.type ?? "text"}
       />
     </Field>
   );
