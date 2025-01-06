@@ -7,8 +7,15 @@ import {
   DialogProps,
   DialogTitle,
 } from "@headlessui/react";
+import { FormEventHandler } from "react";
+import InputField from "../InputField";
 
-export default function BookingDialog(props: DialogProps) {
+export default function BookingDialog({
+  onSubmit,
+  ...props
+}: Omit<DialogProps, "onSubmit"> & {
+  onSubmit: FormEventHandler<HTMLFormElement>;
+}) {
   return (
     <Dialog {...props} className="z:50 relative">
       <DialogBackdrop className="fixed inset-0 bg-black/30" />
@@ -20,14 +27,17 @@ export default function BookingDialog(props: DialogProps) {
             This is where you'll add the details of your booking
           </Description>
 
-          {/* TODO: Input fields (make component) */}
-
-          <Button
-            onClick={() => {
-              console.log("Submit");
-              props.onClose(false);
-            }}
+          <form
+            className="flex flex-col gap-4"
+            id="booking-form"
+            onSubmit={onSubmit}
           >
+            <InputField label="People" name="people" />
+            <InputField label="Date" name="date" type="date" />
+            <InputField label="Time" name="time" type="time" />
+          </form>
+
+          <Button className="bg-blue-500" form="booking-form" type="submit">
             Book now
           </Button>
         </DialogPanel>
