@@ -1,7 +1,8 @@
-import { Button, Description, DialogProps } from "@headlessui/react";
+import { Description, DialogProps } from "@headlessui/react";
 import { FormEventHandler } from "react";
 import Dialog from "../Dialog";
 import InputField from "../InputField";
+import Button from "../Button";
 
 export default function BookingDialog({
   onSubmit,
@@ -31,7 +32,7 @@ export default function BookingDialog({
         <InputField label="Time" name="time" type="time" />
       </form>
 
-      <Button className="bg-blue-500" form="booking-form" type="submit">
+      <Button form="booking-form" type="submit">
         Book now
       </Button>
     </Dialog>
