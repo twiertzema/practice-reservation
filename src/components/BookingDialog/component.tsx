@@ -1,14 +1,15 @@
 import { Description, DialogProps } from "@headlessui/react";
-import { FormEventHandler } from "react";
+import Button from "../Button";
 import Dialog from "../Dialog";
 import InputField from "../InputField";
-import Button from "../Button";
+
+const FORM_ID = "booking-form";
 
 export default function BookingDialog({
   onSubmit,
   ...props
 }: Omit<DialogProps, "onSubmit"> & {
-  onSubmit: FormEventHandler<HTMLFormElement>;
+  onSubmit: (formData: { date: string; people: number; time: string }) => void;
 }) {
   return (
     <Dialog {...props} title="Book a table">
@@ -18,8 +19,31 @@ export default function BookingDialog({
 
       <form
         className="flex flex-col gap-4"
-        id="booking-form"
-        onSubmit={onSubmit}
+        id={FORM_ID}
+        onSubmit={(e) => {
+          e.preventDefault();
+
+          const formData = new FormData(e.currentTarget);
+
+          const people = Number(formData.get("people"));
+          const date = formData.get("date");
+          const time = formData.get("time");
+
+          // Short-circuit instead of intelligent validation.
+          if (date == null || time == null) return;
+          if (
+            isNaN(people) ||
+            typeof date !== "string" ||
+            typeof time !== "string"
+          )
+            return;
+
+          onSubmit({
+            date,
+            people,
+            time,
+          });
+        }}
       >
         <InputField
           label="People"
@@ -32,7 +56,7 @@ export default function BookingDialog({
         <InputField label="Time" name="time" type="time" />
       </form>
 
-      <Button form="booking-form" type="submit">
+      <Button form={FORM_ID} type="submit">
         Book now
       </Button>
     </Dialog>
