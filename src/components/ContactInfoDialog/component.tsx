@@ -1,4 +1,6 @@
 import { Description, DialogProps } from "@headlessui/react";
+import pluralize from "pluralize";
+import { useMemo } from "react";
 import Button from "../Button";
 import Dialog from "../Dialog";
 import InputField from "../InputField";
@@ -17,14 +19,18 @@ export default function ContactInfoDialog({
   people: number;
   time: string;
 }) {
-  const dateObj = new Date(date);
-  const formattedDate = new Intl.DateTimeFormat("en-US").format(dateObj);
+  const formattedDate = useMemo(() => {
+    if (date === "") return "";
+
+    const dateObj = new Date(date);
+    return new Intl.DateTimeFormat("en-US").format(dateObj);
+  }, [date]);
 
   return (
     <Dialog {...props} title="Contact Details">
       <Description>
-        You are making a reservation for {people} persons, on {formattedDate} at{" "}
-        {time}.
+        You are making a reservation for {pluralize("person", people, true)}, on{" "}
+        {formattedDate} at {time}.
       </Description>
 
       <form

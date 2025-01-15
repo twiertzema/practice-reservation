@@ -5,7 +5,7 @@ import Button from "./components/Button";
 import ContactInfoDialog from "./components/ContactInfoDialog";
 
 function App() {
-  const [isBookingOpen, setIsBookingOpen] = useState(true);
+  const [isBookingOpen, setIsBookingOpen] = useState(false);
   const [isContactOpen, setIsContactOpen] = useState(false);
 
   const [people, setPeople] = useState(0);
