@@ -57,7 +57,7 @@ export default function ContactInfoDialog({
         }}
       >
         <InputField label="Name" name="name" />
-        <InputField label="Phone number" name="phone" />
+        <InputField label="Phone #" name="phone" />
       </form>
 
       <Button form={FORM_ID} type="submit">

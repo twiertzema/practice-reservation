@@ -15,10 +15,10 @@ export default function InputField({ label, ...inputProps }: InputFieldProps) {
         outlineStyle: inputFocus ? "solid" : undefined,
       }}
     >
-      <Label className="text-sm italic">{label}</Label>
+      <Label className="w-14 text-sm italic">{label}</Label>
       <Input
         {...inputProps}
-        className="flex-grow bg-transparent focus:outline-none"
+        className="grow bg-transparent focus:outline-none"
         onBlur={() => setInputFocus(false)}
         onFocus={() => setInputFocus(true)}
         type={inputProps?.type ?? "text"}
